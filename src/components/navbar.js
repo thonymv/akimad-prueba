@@ -1,4 +1,4 @@
-import React , { useState } from 'react'
+import React , { useState , useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 import Button from '@material-ui/core/Button'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsers } from '../features/users/usersSlice'
+import { fetchUsers , setSearch , changePage } from '../features/users/usersSlice'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -110,14 +110,15 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar(props){
 	const classes = useStyles();
-	const { listUsers , loading, error } = useSelector((state) => state.users) 
+	const { listUsers , loading, error , search} = useSelector((state) => state.users) 
+	const [searchInput , setSearchInput] = useState("")
 	const dispatch = useDispatch()
-	const [search, setSearch] = useState("")
 	const location = useLocation()
 	const handleUsers = async ()=>{
 		if(loading == 'idle' && search.replace(/\s+/g, '').length ){
 			try {
-				await dispatch(fetchUsers(search))
+				dispatch(changePage(1))
+				await dispatch(fetchUsers())
 				if(error == undefined){
 					//toast.success("Cargado",{className:classes.toastSuccess})
 				}else{
@@ -129,13 +130,22 @@ function Navbar(props){
 		}
 	}
 
+	useEffect(()=>{
+		if(search.replace(/\s/g, "")){
+			handleUsers()
+		}
+	},[search])
+
 	return (
 		<>
 			<AppBar color="primary" position="fixed">
 				<Toolbar>
 					<Typography className={classes.title}>
-						<img className={classes.iconTitle} src="/team.svg" />
-						Users Github
+						<img 
+							className={classes.iconTitle} 
+							src="https://res.cloudinary.com/dwyla7vyk/image/upload/v1629964865/team_elhszj.svg" 
+						/>
+						Test Akimad
 					</Typography>
 				</Toolbar>
 				{location.pathname == "/"?
@@ -147,9 +157,9 @@ function Navbar(props){
 							</div>
 							<InputBase
 								placeholder="Search…"
-								value={search}
+								value={searchInput}
 								disabled={loading != 'idle'}
-								onChange={(event)=>{setSearch(event.target.value)}}
+								onChange={(event)=>{setSearchInput(event.target.value)}}
 								classes={{
 									root: classes.inputRoot,
 									input: classes.inputInput,
@@ -157,7 +167,13 @@ function Navbar(props){
 								inputProps={{ 'aria-label': 'search' }}
 							/>
 							<div className={classes.searchButton}>
-								<Button onClick={handleUsers}  variant="contained" size="large" color="info" className={classes.button}>
+								<Button 
+									onClick={()=>{dispatch(setSearch(searchInput))}}  
+									variant="contained" 
+									size="large" 
+									color="info" 
+									className={classes.button}
+								>
 									{loading == 'idle'?
 										"search"
 										:

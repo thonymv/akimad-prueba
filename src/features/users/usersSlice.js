@@ -3,13 +3,12 @@ import { usersAPI } from './usersApi'
 
 export const fetchUsers = createAsyncThunk(
 	'users/fetchUsersStatus',
-	async (search, { getState, requestId }) => {
-		const { currentRequestId, loading } = getState().users
+	async (data,{ getState, requestId }) => {
+		const { currentRequestId, loading, page , result , search } = getState().users
 		if (loading !== 'pending' || requestId !== currentRequestId) {
 			return
 		}
-		
-		const response = search? await usersAPI.searchUsers(search) : await usersAPI.getUsers()
+		const response = search.replace(/\s/g, "")? await usersAPI.searchUsers({search,page,result}) : await usersAPI.getUsers({page,result})
 		
 		return response
 	}
@@ -22,10 +21,22 @@ const usersSlice = createSlice({
 		loading: 'idle',
 		error: undefined,
 		currentRequestId: undefined,
-		listUsers:[]
+		listUsers:[],
+		page:1,
+		result:4,
+		search:"",
+		total_count:0
 	},
 	reducers: {
-		//standard reducer logic, with auto-generated action types per reducer
+		changePage: (state, action) => {
+			state.page = action.payload
+		},
+		changeResult: (state, action) => {
+			state.result = action.payload
+		},
+		setSearch:(state, action)=>{
+			state.search = action.payload
+		}
 	},
 	extraReducers: (builder) => {
 		// Add reducers for additional action types here, and handle loading state as needed
@@ -38,7 +49,8 @@ const usersSlice = createSlice({
 			) {
 				state.loading = 'idle'
 				console.log(action.payload)
-				state.listUsers = action.payload
+				state.listUsers = action.payload.items
+				state.total_count = action.payload.total_count
 				state.currentRequestId = undefined
 			}
 		})
@@ -62,5 +74,7 @@ const usersSlice = createSlice({
 		})
 	},
 })
+
+export const { changePage , changeResult , setSearch } = usersSlice.actions
 
 export default usersSlice.reducer

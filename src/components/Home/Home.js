@@ -22,26 +22,28 @@ const useStyles = makeStyles((theme) => ({
 	
 const Home = (props) => {
 
-	const { listUsers , loading, error } = useSelector((state) => state.users) 
+	const { listUsers , loading, error , page, result} = useSelector((state) => state.users) 
 	const dispatch = useDispatch()
 	const classes = useStyles()
 	const handleUsers = async ()=>{
-		if(loading == 'idle' && !listUsers.length){
+		if(loading == 'idle'){
 			try {
 				await dispatch(fetchUsers())
 				if(error == undefined){
 					//toast.success("Cargado",{className:classes.toastSuccess})
 				}else{
 					toast.error("No se ha podido cargar",{className:classes.toastDanger})
+					console.error(error)
 				}
 			} catch(err){
 				toast.error("No se ha podido cargar",{className:classes.toastDanger})
+				console.error(err)
 			}
 		}
 	}
 	useEffect(()=>{
 		handleUsers()
-	},[])
+	},[page,result])
 	const users = [
 		{
 			login:"defunkt",

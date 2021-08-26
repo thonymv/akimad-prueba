@@ -1,17 +1,21 @@
-const getUsers = async ()=> {
-	let users = await fetch('https://api.github.com/users')
-	return await users.json()
+const headers = { 
+	Authorization: 'token access_token' 
 }
 
-const searchUsers = async search=> {
-	let users = await fetch('https://api.github.com/search/users?q='+search)
-	return (await users.json()).items
+const getUsers = async ({page,result})=> {
+	let users = await fetch(`https://api.github.com/search/users?order=desc&page=${page}&per_page=${result}&q=mojo`,{headers})
+	return (await users.json())
 }
 
-const getUser = async id=> {
-	let user = await ( await fetch('https://api.github.com/users/'+id) ).json()
-	user.repo = await ( await fetch(user.repos_url) ).json()
-	user.org = await ( await fetch(user.organizations_url) ).json()
+const searchUsers = async ({search,page,result})=> {
+	let users = await fetch(`https://api.github.com/search/users?order=desc&page=${page}&per_page=${result}&q=`+search,{headers})
+	return (await users.json())
+}
+
+const getUser = async ({id,page,result})=> {
+	let user = await ( await fetch(`https://api.github.com/users/${id}?order=desc&page=${page}&per_page=${result}`,{headers}) ).json()
+	user.repo = await ( await fetch(user.repos_url,{headers}) ).json()
+	user.org = await ( await fetch(user.organizations_url,{headers}) ).json()
 	return user
 }
 

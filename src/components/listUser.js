@@ -16,7 +16,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import { useHistory } from "react-router-dom"
 import { useSelector } from 'react-redux'
 import { grey } from '@material-ui/core/colors'
-
+import PaginationList from './paginationList'
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
@@ -84,6 +84,9 @@ export default function AlignItemsList(props) {
 						  />
 						</ListItem>
 					:null}
+					<ListItem>
+						<PaginationList />
+					</ListItem>
 				</List>
 				:
 				<LinearProgress className={classes.linearProgress} />
@@ -95,12 +98,19 @@ export default function AlignItemsList(props) {
 const ItemList = ({ user })=>{
 	
 	const [userData,setUserData] = useState(false)
+	const [load,setLoad] = useState(false)
+	const [err,setErr] = useState(false)
+	const { page, result } = useSelector((state) => state.users) 
 	const classes = useStyles();
 	const handleUserData = ()=>{
-		usersAPI.getUser(user.id).then(userResponse=>{
+		usersAPI.getUser({id:user.login,page,result }).then(userResponse=>{
 			console.log("userResponse")
 			console.log(userResponse)
 			setUserData(userResponse)
+			setLoad(true)
+		}).catch(err=>{
+			setLoad(true)
+			setErr(true)
 		})
 	}
 	const history = useHistory()
@@ -140,13 +150,14 @@ const ItemList = ({ user })=>{
 						>
 							{userData.name}
 						</Typography>
-						{" - "}{userData.location}
+						{userData?" - ":""}{userData.location}
+						{err && !userData?"User data not found":""}
 					</React.Fragment>
 				}
 			/>
 			<ListItemSecondaryAction>
-				{userData?
-			<IconButton onClick={toUser}>
+				{load?
+					<IconButton disabled={err}  onClick={toUser}>
 						<ChevronRightIcon />
 					</IconButton>
 				:
