@@ -5,7 +5,7 @@ const getUsers = async ()=> {
 
 const searchUsers = async search=> {
 	let users = await fetch('https://api.github.com/search/users?q='+search)
-	return await users.json()
+	return (await users.json()).items
 }
 
 const getUser = async id=> {

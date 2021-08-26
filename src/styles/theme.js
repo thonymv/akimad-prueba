@@ -32,14 +32,13 @@ const primaryBlue = {
 const lineColor = grey[200]
 
 /*-----------------------------------theme secondary-----------------------------------------------------------*/
-const labelColor = grey[500]
+const labelColor = grey[200]
 
 
 const secondary = {
 	light:blueGrey[50],
 	main:"#fff",
 	contrastText:grey[600],
-	labelColor
 }
 
 const info = {
@@ -70,6 +69,7 @@ const theme = {
 		info
 	},
 	breakpoints:breakpoints,
+	labelColor,
 	lineColor
 }
 

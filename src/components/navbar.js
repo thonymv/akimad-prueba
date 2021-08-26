@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { useState } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -6,10 +6,16 @@ import { makeStyles } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 import Button from '@material-ui/core/Button'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUsers } from '../features/users/usersSlice'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
 	offset:{height:"10em"},
+	offset2:{height:"4em"},
 	title:{
 		fontSize:"1.25em",
 		display:"flex",
@@ -104,7 +110,25 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar(props){
 	const classes = useStyles();
-	
+	const { listUsers , loading, error } = useSelector((state) => state.users) 
+	const dispatch = useDispatch()
+	const [search, setSearch] = useState("")
+	const location = useLocation()
+	const handleUsers = async ()=>{
+		if(loading == 'idle' && search.replace(/\s+/g, '').length ){
+			try {
+				await dispatch(fetchUsers(search))
+				if(error == undefined){
+					//toast.success("Cargado",{className:classes.toastSuccess})
+				}else{
+					toast.error("No se ha podido cargar",{className:classes.toastDanger})
+				}
+			} catch(err){
+				toast.error("No se ha podido cargar",{className:classes.toastDanger})
+			}
+		}
+	}
+
 	return (
 		<>
 			<AppBar color="primary" position="fixed">
@@ -114,6 +138,7 @@ function Navbar(props){
 						Users Github
 					</Typography>
 				</Toolbar>
+				{location.pathname == "/"?
 				<Toolbar>
 					<div className={classes.spacing} >
 						<div className={classes.search}>
@@ -122,6 +147,9 @@ function Navbar(props){
 							</div>
 							<InputBase
 								placeholder="Search…"
+								value={search}
+								disabled={loading != 'idle'}
+								onChange={(event)=>{setSearch(event.target.value)}}
 								classes={{
 									root: classes.inputRoot,
 									input: classes.inputInput,
@@ -129,15 +157,21 @@ function Navbar(props){
 								inputProps={{ 'aria-label': 'search' }}
 							/>
 							<div className={classes.searchButton}>
-								<Button variant="contained" size="large" color="info" className={classes.button}>
-									search
+								<Button onClick={handleUsers}  variant="contained" size="large" color="info" className={classes.button}>
+									{loading == 'idle'?
+										"search"
+										:
+										<CircularProgress color="inherit" size="1.5em" />
+									}
 								</Button>
 							</div>
 						</div>
 					</div>
 				</Toolbar>
+				:null}
 			</AppBar>
-			<div className={classes.offset} />
+			<div className={location.pathname == "/"?classes.offset:classes.offset2} />
+			<ToastContainer position="bottom-right"/>
 		</>
 	)
 

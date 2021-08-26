@@ -37,6 +37,7 @@ const usersSlice = createSlice({
 				state.currentRequestId === requestId
 			) {
 				state.loading = 'idle'
+				console.log(action.payload)
 				state.listUsers = action.payload
 				state.currentRequestId = undefined
 			}

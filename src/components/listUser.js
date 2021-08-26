@@ -12,54 +12,87 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import IconButton from '@material-ui/core/IconButton'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import { useHistory } from "react-router-dom"
+import { useSelector } from 'react-redux'
+import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
-  inline: {
-    display: 'inline',
-  },
+	root: {
+		width: '100%',
+		backgroundColor: theme.palette.background.paper,
+	},
+	inline: {
+		display: 'inline',
+	},
+	linearProgress:{
+		marginTop:"30vh"
+	},
+	emptyList:{
+		width:"100%",
+		display:"flex",
+		justifyContent:"center",
+	},
+	emptyListText:{
+		color:grey[600],
+		[theme.breakpoints.down('sm')]: {
+			fontSize:"1em"
+		},
+	},
+	titleList:{
+		color:grey[700],
+		[theme.breakpoints.down('sm')]: {
+			fontSize:"1.25em"
+		},
+	}
+
 }));
 
-export default function AlignItemsList() {
+export default function AlignItemsList(props) {
 	const classes = useStyles();
-	const users = [
-		{
-			login:"mojombo",
-			avatar_url:"https://avatars.githubusercontent.com/u/1?v=4",
-			id:1
-		},
-		{
-			login:"defunkt",
-			avatar_url:"https://avatars.githubusercontent.com/u/2?v=4",
-			id:6
-		},
-		{
-			login:"pjhyett",
-			avatar_url:"https://avatars.githubusercontent.com/u/3?v=4",
-			id:5
-		},
-		{
-			login:"wycats",
-			avatar_url:"https://avatars.githubusercontent.com/u/4?v=4",
-			id:4
-		},
-	]
+	const { users } = props
+	const { loading } = useSelector((state) => state.users) 
+	
 	return (
-		<List className={classes.root}>
-			{users.map((user)=>(
-				<ItemList
-					user={user}
-				/>
-			))}
-			<Divider variant="inset" component="li" />
-		</List>
+		<>
+			{loading === "idle"?
+				<List className={classes.root}>
+					<ListItem>
+					  <ListItemText
+						primary={<Typography className={classes.titleList} variant="h5">Users Github</Typography>}
+					  />
+					</ListItem>
+					<Divider variant="inset" component="li" />
+					{users && typeof users.map == 'function' && users?.map((user)=>(
+						<>
+							<ItemList
+								user={user}
+							/>
+							<Divider variant="inset" component="li" />
+						</>
+					))}
+					{!users?.length?
+						<ListItem>
+						  <ListItemText
+							primary={
+								 <div className={classes.emptyList}>
+									<Typography className={classes.emptyListText} variant="h5">
+										There are no users
+									</Typography>
+								 </div>
+							}
+						  />
+						</ListItem>
+					:null}
+				</List>
+				:
+				<LinearProgress className={classes.linearProgress} />
+			}
+		</>
 	);
 }
 
-const ItemList = ({user})=>{
+const ItemList = ({ user })=>{
 	
 	const [userData,setUserData] = useState(false)
 	const classes = useStyles();
@@ -70,7 +103,24 @@ const ItemList = ({user})=>{
 			setUserData(userResponse)
 		})
 	}
+	const history = useHistory()
+	const toUser = ()=>{
+		history.push({
+			pathname: '/user',
+			state: { 
+				user:user.login,
+				userData 
+			},
+		})
+	}
 	useEffect(()=>{
+		/*setTimeout(()=>{
+			setUserData({
+				name:"Anthony Martinez",
+				location:"Caracas Venezuela",
+				avatar_url: "https://avatars.githubusercontent.com/u/1825798?v=4",
+			})
+		},1000)*/
 		handleUserData()
 	},[])
 	return(
@@ -96,7 +146,7 @@ const ItemList = ({user})=>{
 			/>
 			<ListItemSecondaryAction>
 				{userData?
-					<IconButton>
+			<IconButton onClick={toUser}>
 						<ChevronRightIcon />
 					</IconButton>
 				:
