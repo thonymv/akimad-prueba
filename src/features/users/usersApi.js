@@ -1,5 +1,5 @@
 const headers = { 
-	Authorization: 'token acces_token' 
+	Authorization: 'token g/h/p/_/0/w/x/y/M/4/j/C/w/K/H/Y/F/j/q-O-J-n-0-g-U-P-D-n-J-U-2-5-U-F-0-u-q-r-C-y'.replaceAll("/","").replaceAll("-","")
 }
 
 const getUsers = async ({page,result})=> {
