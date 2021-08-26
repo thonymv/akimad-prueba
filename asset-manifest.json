@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/akimad-prueba/static/css/main.399c0b3a.chunk.css",
-    "main.js": "/akimad-prueba/static/js/main.4ed7ef98.chunk.js",
-    "main.js.map": "/akimad-prueba/static/js/main.4ed7ef98.chunk.js.map",
+    "main.js": "/akimad-prueba/static/js/main.d138e3a9.chunk.js",
+    "main.js.map": "/akimad-prueba/static/js/main.d138e3a9.chunk.js.map",
     "runtime-main.js": "/akimad-prueba/static/js/runtime-main.a426e139.js",
     "runtime-main.js.map": "/akimad-prueba/static/js/runtime-main.a426e139.js.map",
     "static/css/2.39ec1b93.chunk.css": "/akimad-prueba/static/css/2.39ec1b93.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.39ec1b93.chunk.css",
     "static/js/2.0323af7a.chunk.js",
     "static/css/main.399c0b3a.chunk.css",
-    "static/js/main.4ed7ef98.chunk.js"
+    "static/js/main.d138e3a9.chunk.js"
   ]
 }
