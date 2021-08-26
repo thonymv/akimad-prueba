@@ -148,7 +148,7 @@ function Navbar(props){
 						Test Akimad
 					</Typography>
 				</Toolbar>
-				{location.pathname == "/"?
+				{location.pathname != "/akimad-prueba/user" && location.pathname != "/user"?
 				<Toolbar>
 					<div className={classes.spacing} >
 						<div className={classes.search}>
