@@ -186,7 +186,7 @@ function Navbar(props){
 				</Toolbar>
 				:null}
 			</AppBar>
-			<div className={location.pathname == "/"?classes.offset:classes.offset2} />
+			<div className={location.pathname != "/akimad-prueba/user" && location.pathname != "/user"?classes.offset:classes.offset2} />
 			<ToastContainer position="bottom-right"/>
 		</>
 	)

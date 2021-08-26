@@ -1,5 +1,5 @@
 const headers = { 
-	Authorization: 'token acces_token'
+	Authorization: 'token acces_token' 
 }
 
 const getUsers = async ({page,result})=> {

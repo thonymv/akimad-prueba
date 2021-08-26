@@ -97,7 +97,7 @@ const User = (props) => {
 			<Paper className={classes.root}>
 				<IconButton
 					onClick={()=>{
-						history.push("/")
+						history.push("/akimad-prueba")
 					}}
 					className={classes.backButton}
 				>

@@ -17,7 +17,7 @@ function App() {
 					<Route path="/user">
 						<User />
 					</Route>
-					<Route path="/">
+					<Route path={["/","/akimad-prueba"]}>
 						<Home />
 					</Route>
 				</Switch>
