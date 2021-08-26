@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/akimad-prueba/static/css/main.22b6e383.chunk.css",
-    "main.js": "/akimad-prueba/static/js/main.07846fdd.chunk.js",
-    "main.js.map": "/akimad-prueba/static/js/main.07846fdd.chunk.js.map",
-    "runtime-main.js": "/akimad-prueba/static/js/runtime-main.9d3d44d1.js",
-    "runtime-main.js.map": "/akimad-prueba/static/js/runtime-main.9d3d44d1.js.map",
-    "static/css/2.9a5ad9e8.chunk.css": "/akimad-prueba/static/css/2.9a5ad9e8.chunk.css",
-    "static/js/2.b2521aa2.chunk.js": "/akimad-prueba/static/js/2.b2521aa2.chunk.js",
-    "static/js/2.b2521aa2.chunk.js.map": "/akimad-prueba/static/js/2.b2521aa2.chunk.js.map",
-    "static/js/3.dd4c34ab.chunk.js": "/akimad-prueba/static/js/3.dd4c34ab.chunk.js",
-    "static/js/3.dd4c34ab.chunk.js.map": "/akimad-prueba/static/js/3.dd4c34ab.chunk.js.map",
+    "main.css": "/akimad-prueba/static/css/main.399c0b3a.chunk.css",
+    "main.js": "/akimad-prueba/static/js/main.5472e321.chunk.js",
+    "main.js.map": "/akimad-prueba/static/js/main.5472e321.chunk.js.map",
+    "runtime-main.js": "/akimad-prueba/static/js/runtime-main.a426e139.js",
+    "runtime-main.js.map": "/akimad-prueba/static/js/runtime-main.a426e139.js.map",
+    "static/css/2.39ec1b93.chunk.css": "/akimad-prueba/static/css/2.39ec1b93.chunk.css",
+    "static/js/2.0323af7a.chunk.js": "/akimad-prueba/static/js/2.0323af7a.chunk.js",
+    "static/js/2.0323af7a.chunk.js.map": "/akimad-prueba/static/js/2.0323af7a.chunk.js.map",
+    "static/js/3.ea2fa39d.chunk.js": "/akimad-prueba/static/js/3.ea2fa39d.chunk.js",
+    "static/js/3.ea2fa39d.chunk.js.map": "/akimad-prueba/static/js/3.ea2fa39d.chunk.js.map",
     "index.html": "/akimad-prueba/index.html",
-    "static/css/2.9a5ad9e8.chunk.css.map": "/akimad-prueba/static/css/2.9a5ad9e8.chunk.css.map",
-    "static/css/main.22b6e383.chunk.css.map": "/akimad-prueba/static/css/main.22b6e383.chunk.css.map",
-    "static/js/2.b2521aa2.chunk.js.LICENSE.txt": "/akimad-prueba/static/js/2.b2521aa2.chunk.js.LICENSE.txt",
+    "static/css/2.39ec1b93.chunk.css.map": "/akimad-prueba/static/css/2.39ec1b93.chunk.css.map",
+    "static/css/main.399c0b3a.chunk.css.map": "/akimad-prueba/static/css/main.399c0b3a.chunk.css.map",
+    "static/js/2.0323af7a.chunk.js.LICENSE.txt": "/akimad-prueba/static/js/2.0323af7a.chunk.js.LICENSE.txt",
     "static/media/index.css": "/akimad-prueba/static/media/roboto-vietnamese-400-normal.c0bec65d.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.9d3d44d1.js",
-    "static/css/2.9a5ad9e8.chunk.css",
-    "static/js/2.b2521aa2.chunk.js",
-    "static/css/main.22b6e383.chunk.css",
-    "static/js/main.07846fdd.chunk.js"
+    "static/js/runtime-main.a426e139.js",
+    "static/css/2.39ec1b93.chunk.css",
+    "static/js/2.0323af7a.chunk.js",
+    "static/css/main.399c0b3a.chunk.css",
+    "static/js/main.5472e321.chunk.js"
   ]
 }
